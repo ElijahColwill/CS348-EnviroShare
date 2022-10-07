@@ -36,6 +36,24 @@
     </div>
 </nav>
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+{% if category == 'error' %}
+<div class="alert alert-dismissible alert-danger" role="alert">
+    <button type="button" class="btn-close" data-dismiss="alert"></button>
+    <strong>Error: </strong> {{ message }}
+</div>
+{% else %}
+<div class="alert alert-dismissible alert-success" role="alert">
+    <button type="button" class="btn-close" data-dismiss="alert"></button>
+    <strong>Success: </strong> {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endwith %}
+
 <div class="container">{% block content %} {% endblock %}</div>
 <script
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
