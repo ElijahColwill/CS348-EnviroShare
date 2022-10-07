@@ -2,5 +2,84 @@
 {% block title %}EnviroShare Home{% endblock %}
 
 {% block content %}
-<h1 align="center">Home</h1>
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Welcome to EnviroShare!</h1>
+    <hr class="my-4">
+    <p>Our mission is to promote public ride-share and rental transportation while protecting the
+        environment through prioritizing lower-emissions options.</p>
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">Drive for Us!</h3>
+    <div class="card-body">
+        <h5 class="card-title">Environmentally Focused Ride Share</h5>
+        <h6 class="card-subtitle text-muted"></h6>
+    </div>
+    <img src="static/header_photo.png" alt="Drivers">
+    <div class="card-body">
+        <p class="card-text">Access a new audience of environmentally conscious urban residents who want to utilize
+            shared transportation, You can work when you want with no restrictions or boss, and earn competitive
+            pay!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/driver-sign-up" role="button">Become a Driver</a>
+        </p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Flexible Hours</li>
+        <li class="list-group-item">Dynamic Pay - Earn more during peak hours</li>
+        <li class="list-group-item">Limited Time: $100 Sign-Up Bonus</li>
+    </ul>
+    <div class="card-footer text-muted">
+        Offer of employment subject to meeting eligibility requirements.
+    </div>
+</div>
+<h2>Our Services</h2>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Low or No-Emissions Ride Share
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+             data-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <strong>Ride with drivers with Hybrid, Low Emissions, and Electric Cars.</strong> Riders can sort their
+                ride by
+                emissions savings, and drivers can add their car to our
+                emissions savings database.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Carpool Ride-Sharing
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+             data-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <strong>Going to the same place as someone else?</strong> Ride with other passengers to both save money
+                and emissions! Drivers will also get paid more for rides with multiple passengers.
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button" type="button" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                Bike and Scooter Rentals
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree"
+             data-parent="#accordionExample" style="">
+            <div class="accordion-body">
+                <strong>Stay off the road entirely and avoid rush hour traffic.</strong> Our platform can show you
+                nearby e-bike and e-scooter rentals for another no-emissions way to get to your destination!
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

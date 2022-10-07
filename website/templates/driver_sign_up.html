@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Driver Sign-Up{% endblock %}
+
+{% block content %}
+<form method="POST" id="driverForm">
+    <h3 align="center">Driver Sign Up</h3>
+    <h5>Account Information</h5>
+    <div class="form-group">
+        <div class="form-floating mb-3">
+            <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="name@example.com"
+            />
+            <label for="email">Email Address</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-floating mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="Enter First Name"
+            />
+            <label for="firstName">First Name</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-floating mb-3">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password1"
+                    name="password1"
+                    placeholder="Enter Password"
+            />
+            <label for="password1">Password</label>
+        </div>
+        <p class="text-secondary"> Password must be at least 8 characters.</p>
+    </div>
+    <div class="form-group">
+        <div class="form-floating mb-3">
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password2"
+                    name="password2"
+                    placeholder="Confirm password"
+            />
+            <label for="password2">Password (Confirm)</label>
+        </div>
+    </div>
+    <h5>Personal Information</h5>
+    <div class="form-group">
+        <label for="driverPhoto" class="form-label">Identification Photo (Head and Shoulders with Single Color
+            Background)</label>
+        <input class="form-control" type="file" id="driverPhoto" name="driverPhoto">
+    </div>
+    <fieldset class="form-group" form="driverForm">
+        <label for="driverPhoto" class="form-label">Eligibility</label>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="driverAgeCheck" name="driverAgeCheck">
+            <label class="form-check-label" for="driverAgeCheck">
+                I am 18 years of age or older.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="driverCriminalCheck"
+                   name="driverCriminalCheck">
+            <label class="form-check-label" for="driverCriminalCheck">
+                I have not been convicted of any crime (not including minor traffic violations).
+            </label>
+        </div>
+    </fieldset>
+    <br/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
