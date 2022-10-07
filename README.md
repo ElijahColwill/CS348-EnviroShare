@@ -8,3 +8,4 @@ CS 348 - Fall 2022: Ride Sharing Relational Database Group Project
   .gitignore
 - To setup environment: Python 3.9, and install with pip flask, flask-login, and flask-sqlalchemy
 - Bootstrap template used (with class info): https://bootswatch.com/cerulean/
+- To run application, run main.py to start server and navigate to http://127.0.0.1:5000/ in a web browser (localhost).
