@@ -29,8 +29,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            {% if current_user.is_authenticated %}
+            {% if current_user.role == 'rider' %}
+            <a class="nav-item nav-link" id="rider-dashboard" href="/rider-dashboard">Dashboard</a>
+            {% else %}
+            <a class="nav-item nav-link" id="driver-dashboard" href="/driver-dashboard">Dashboard</a>
+            {% endif %}
             <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            {% else %}
+            <a class="nav-item nav-link" id="home" href="/">Home</a>
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
@@ -40,6 +47,7 @@
                     <a class="dropdown-item" href="/driver-sign-up">Drive With Us</a>
                 </div>
             </li>
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -55,7 +63,7 @@
 {% else %}
 <div class="alert alert-dismissible alert-success" role="alert">
     <button type="button" class="btn-close" data-dismiss="alert"></button>
-    <strong>Success: </strong> {{ message }}
+    <strong>Message: </strong> {{ message }}
 </div>
 {% endif %}
 {% endfor %}
