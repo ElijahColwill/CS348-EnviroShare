@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 
 db = SQLAlchemy()
-DB_NAME = "database.db"
+DB_NAME = 'enviroshare'
 
 
 def login_required(role="ANY"):
@@ -26,7 +26,7 @@ def login_required(role="ANY"):
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = '348-demo'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqldb://Enviroshare:Enviroshare@127.0.0.1:3306/{DB_NAME}'
     db.init_app(app)
 
     from .views import views
