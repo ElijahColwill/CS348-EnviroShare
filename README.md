@@ -14,7 +14,7 @@ CS 348 - Fall 2022: Ride Sharing Relational Database Group Project
   Line from the root user:
 
 ```
-CREATE USER 'Enviroshare'@'127.0.0.1' BY 'Enviroshare';
+CREATE USER 'Enviroshare'@'127.0.0.1' IDENTIFIED BY 'Enviroshare';
 GRANT ALL PRIVILEGES ON *.* TO 'Enviroshare'@'127.0.0.1' WITH GRANT OPTION;
 ```
 
