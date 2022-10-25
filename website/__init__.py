@@ -1,6 +1,6 @@
 from functools import wraps
 
-from flask import Flask, current_app
+from flask import Flask, session, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 
@@ -14,7 +14,7 @@ def login_required(role="ANY"):
         def decorated_view(*args, **kwargs):
             if not current_user.is_authenticated:
                 return current_app.login_manager.unauthorized()
-            if (current_user.role != role) and (role != "ANY"):
+            if (session['account_type'] != role) and (role != "ANY"):
                 return current_app.login_manager.unauthorized()
             return fn(*args, **kwargs)
 
@@ -35,7 +35,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User
+    from .models import Rider, Driver
 
     with app.app_context():
         db.create_all()
@@ -45,7 +45,12 @@ def create_app():
     login_manager.init_app(app)
 
     @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    def load_user(user_id):
+        if session['account_type'] == 'Driver':
+            return Driver.query.get(int(user_id))
+        elif session['account_type'] == 'Rider':
+            return Rider.query.get(int(user_id))
+        else:
+            return None
 
     return app
