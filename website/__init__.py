@@ -12,7 +12,7 @@ def login_required(role="ANY"):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
-            if not current_user.is_authenticated:
+            if not current_user.is_authenticated or 'account_type' not in session:
                 return current_app.login_manager.unauthorized()
             if (session['account_type'] != role) and (role != "ANY"):
                 return current_app.login_manager.unauthorized()
@@ -46,11 +46,13 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        if session['account_type'] == 'Driver':
-            return Driver.query.get(int(user_id))
-        elif session['account_type'] == 'Rider':
-            return Rider.query.get(int(user_id))
-        else:
-            return None
+        if 'account_type' in session:
+            if session['account_type'] == 'Driver':
+                return Driver.query.get(int(user_id))
+            elif session['account_type'] == 'Rider':
+                return Rider.query.get(int(user_id))
+            else:
+                return None
+        return None
 
     return app

@@ -56,12 +56,10 @@
     </div>
     <h5>Eligibility</h5>
     <fieldset class="form-group" form="driverForm">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="driverAgeCheck" name="driverAgeCheck">
-            <label class="form-check-label" for="driverAgeCheck">
-                I am 18 years of age or older.
-            </label>
-        </div>
+        <fieldset>
+            <label class="form-label" for="DOB">Date of Birth (Must be 18 years or older): </label>
+            <input type="date" id="DOB" name="DOB">
+        </fieldset>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="driverCriminalCheck"
                    name="driverCriminalCheck">
