@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Payment Info{% endblock %}
+{% block head %}
+<link
+        rel="stylesheet"
+        type="text/css"
+        href="/static/bootstrap.css"
+/>
+{% endblock %}
+{% block content %}
+
+<form method="POST" id="paymentForm">
+    <h3 align="center">Update Payment Information</h3>
+    {% if role == 'Rider' %}
+    <div class="form-group">
+        <div class="form-group">
+            <label for="card_type">Card Type</label>
+            <select class="form-select" id="card_type" name="card_type">
+                <option>Visa</option>
+                <option>Mastercard</option>
+                <option>Discover</option>
+                <option>American Express</option>
+            </select>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                    type="number"
+                    class="form-control"
+                    id="card_number"
+                    name="card_number"
+            />
+            <label for="card_number">Card Number</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                    type="number"
+                    class="form-control"
+                    id="security_code"
+                    name="security_code"
+            />
+            <label for="security_code">Security Code (3 Digits)</label>
+        </div>
+        <label for="exp_date">Expiration Date:</label>
+        <input type="month" id="exp_date" name="exp_date"
+               min="2023-01">
+    </div>
+    {% else %}
+    <div class="form-group">
+        <div class="form-floating mb-3">
+            <input
+                    type="number"
+                    class="form-control"
+                    id="account_number"
+                    name="account_number"
+            />
+            <label for="account_number">Account Number</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                    type="number"
+                    class="form-control"
+                    id="routing_number"
+                    name="routing_number"
+            />
+            <label for="routing_number">Routing Number</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="holder_name"
+                    name="holder_name"
+            />
+            <label for="holder_name">Account Holder Name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="institution_name"
+                    name="institution_name"
+            />
+            <label for="institution_name">Institution (Bank) Name</label>
+        </div>
+
+    </div>
+    {% endif %}
+    <br/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

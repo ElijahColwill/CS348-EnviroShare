@@ -1,4 +1,18 @@
 @charset "UTF-8";
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
 /*!
  * Bootswatch v5.2.1 (https://bootswatch.com)
  * Theme: cerulean

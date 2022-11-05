@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Settings{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h2 class="display-3" align="center">Settings</h2>
+    <hr class="my-4">
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">{{ role }} Profile <a class="btn btn-primary btn-sm" href="/settings/profile" role="button">Edit</a>
+    </h3>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Full Name: {{ current_user.name }}</li>
+        <li class="list-group-item">Email: {{ current_user.email }}</li>
+        <li class="list-group-item">DOB: {{ current_user.DOB }}</li>
+        <li class="list-group-item">Number of Trips: {{ current_user.number_of_trips }}</li>
+    </ul>
+</div>
+<div class="card mb-3">
+    {% if has_payment == True %}
+    <h3 class="card-header">Payment Information <a class="btn btn-primary btn-sm" href="/payment"
+                                                   role="button">Change</a>
+    </h3>
+    {% if role == 'Rider' %}
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Card Type: {{ payment_info.card_type }}</li>
+        <li class="list-group-item">Card Number: ****-****-****-{{ (payment_info.card_number|string())[-4:] }}</li>
+        <li class="list-group-item">Expiration Date: {{ payment_info.expiration_date }}</li>
+    </ul>
+    {% else %}
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Account Number (Last 4 Digits): {{ (payment_info.account_number|string())[-4:] }}
+        </li>
+        <li class="list-group-item">Routing Number: *****{{ (payment_info.routing_number|string())[-4:] }}</li>
+        <li class="list-group-item">Account Holder Name: {{ payment_info.account_holder_name }}</li>
+        <li class="list-group-item">Institution Name: {{ payment_info.institution_name }}</li>
+    </ul>
+    {% endif %}
+    {% else %}
+    <h3 class="card-header">Payment Information</h3>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a class="btn btn-primary btn-sm" href="/payment"
+                                       role="button">Add Payment Information</a></li>
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}
