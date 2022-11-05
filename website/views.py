@@ -9,6 +9,11 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
+    if session['account_type']:
+        if session['account_type'] == 'Rider':
+            return redirect(url_for('views.rider_dashboard'))
+        else:
+            return redirect(url_for('views.driver_dashboard'))
     return render_template('home.html', user=current_user)
 
 
