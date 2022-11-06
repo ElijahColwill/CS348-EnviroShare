@@ -12,7 +12,7 @@ def home():
     if session['account_type']:
         if session['account_type'] == 'Rider':
             return redirect(url_for('views.rider_dashboard'))
-        else:
+        elif session['account_type'] == 'Driver':
             return redirect(url_for('views.driver_dashboard'))
     return render_template('home.html', user=current_user)
 
@@ -21,7 +21,7 @@ def home():
 @login_required(role="Rider")
 def rider_dashboard():
     has_payment = False
-    if RiderPaymentInformation.query.get(current_user.id).first():
+    if RiderPaymentInformation.query.get(current_user.id):
         has_payment = True
 
     return render_template('rider_dashboard.html', user=current_user,
@@ -36,7 +36,7 @@ def driver_dashboard():
     has_car = False
     if DriverPaymentInformation.query.get(current_user.id):
         has_payment = True
-    if Car.query.filter_by(driver_id=current_user.id):
+    if Car.query.filter_by(driver_id=current_user.id).first():
         has_car = True
     return render_template('driver_dashboard.html', user=current_user,
                            role=session['account_type'],

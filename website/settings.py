@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request, flash
-from flask_login import current_user
+from flask_login import current_user, logout_user
 from sqlalchemy import text
 from werkzeug.security import generate_password_hash
 
@@ -9,17 +9,78 @@ from .models import RiderPaymentInformation, DriverPaymentInformation, Rider, Dr
 settings = Blueprint('settings', __name__)
 
 
+def delete_profile():
+    if session['account_type'] == 'Rider':
+        db.session.execute(text('''
+                                DELETE FROM Rider
+                                WHERE id = :id;
+                                '''),
+                           params={
+                               'id': current_user.id
+                           })
+    else:
+        db.session.execute(text('''
+                                DELETE FROM Driver
+                                WHERE id = :id;
+                                '''),
+                           params={
+                               'id': current_user.id
+                           })
+
+    db.session.commit()
+
+
+def delete_payment():
+    if session['account_type'] == 'Rider':
+        db.session.execute(text('''
+                            DELETE FROM RiderPaymentInformation
+                            WHERE rider_id = :id;
+                            '''),
+                           params={
+                               'id': current_user.id
+                           })
+    else:
+        db.session.execute(text('''
+                            DELETE FROM DriverPaymentInformation
+                            WHERE driver_id = :id;
+                            '''),
+                           params={
+                               'id': current_user.id
+                           })
+    db.session.commit()
+
+
+def delete_car():
+    if session['account_type'] == 'Driver':
+        db.session.execute(text('''
+                        DELETE FROM Car
+                        WHERE driver_id = :id;
+                        '''),
+                           params={
+                               'id': current_user.id
+                           })
+        db.session.commit()
+
+
 @settings.route('/settings', methods=['GET', 'POST'])
 @login_required(role="ANY")
 def settings_home():
     if request.method == 'POST':
         delete = request.form.get('delete')
         if delete == 'profile_delete':
+            delete_payment()
+            delete_car()
+            delete_profile()
+
+            logout_user()
+            session['account_type'] = 'None'
             flash('Account Deleted!', category='success')
-            # return redirect(url_for('auth.logout'))
+            return redirect(url_for('auth.logout'))
         elif delete == 'payment_delete':
+            delete_payment()
             flash('Payment Information Deleted!', category='success')
         elif delete == 'car_delete':
+            delete_car()
             flash('Car Information Deleted!', category='success')
 
     has_payment = False
@@ -208,8 +269,8 @@ def car():
 
         override = request.form.get('car_override')
 
-        if len(license_plate) < 7:
-            flash('License Plate must be at least seven characters.', category='error')
+        if len(license_plate) < 6:
+            flash('License Plate must be at least six characters.', category='error')
         elif not state:
             flash('Please select a state.', category='error')
         elif len(make) < 3:
@@ -294,6 +355,7 @@ def car():
                 }
             )
             db.session.commit()
+            return redirect(url_for('settings.settings_home'))
     return render_template('settings/car.html',
                            user=current_user,
                            role=session['account_type'])
