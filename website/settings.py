@@ -356,6 +356,12 @@ def car():
             )
             db.session.commit()
             return redirect(url_for('settings.settings_home'))
+
+    car_query = Car.query.filter_by(driver_id=current_user.id).first()
+    if car_query:
+        flash('Please delete your current car before adding a new one!', category='error')
+        return redirect(url_for('settings.settings_home'))
+
     return render_template('settings/car.html',
                            user=current_user,
                            role=session['account_type'])
