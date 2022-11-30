@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, session
 from flask_login import current_user
 
+from datetime import datetime
 from . import login_required
 from .models import RiderPaymentInformation, DriverPaymentInformation, Car
 
@@ -9,12 +10,15 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    if session['account_type']:
-        if session['account_type'] == 'Rider':
-            return redirect(url_for('views.rider_dashboard'))
-        elif session['account_type'] == 'Driver':
-            return redirect(url_for('views.driver_dashboard'))
-    return render_template('home.html', user=current_user)
+    try:
+        if session['account_type']:
+            if session['account_type'] == 'Rider':
+                return redirect(url_for('views.rider_dashboard'))
+            elif session['account_type'] == 'Driver':
+                return redirect(url_for('views.driver_dashboard'))
+        return render_template('home.html', user=current_user)
+    except:
+        return render_template('home.html', user=current_user)
 
 
 @views.route('/rider-dashboard')

@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKeyConstraint
 
 from . import db
 from flask_login import UserMixin
-
+from datetime import datetime
 
 class Rider(db.Model, UserMixin):
     __tablename__ = 'Rider'
@@ -78,3 +78,49 @@ class CarType(db.Model):
     fuel_octane = db.Column(db.Numeric)
     MPG = db.Column(db.Numeric)
     carbon_per_mile = db.Column(db.Numeric)
+
+
+class EBikes(db.Model):
+    __tablename__ = 'EBikes'
+    __table_args__ = {'extend_existing': True}
+
+    bike_id = db.Column(db.Integer, primary_key=True)
+    current_station = db.Column(db.Integer, db.ForeignKey('Stations.station_id'))
+    model = db.Column(db.String(150))
+    battery_level = db.Column(db.Numeric)
+    range = db.Column(db.Numeric)
+    carbon_per_mile = db.Column(db.Numeric)
+
+
+class Stations(db.Model):
+    __tablename__ = 'Stations'
+    __table_args__ = {'extend_existing': True}
+
+    station_id = db.Column(db.Integer, primary_key=True)
+    station_name = db.Column(db.String(150))
+    location = db.Column(db.String(150))
+    storage_slots = db.Column(db.Integer)
+
+
+class Drives(db.Model):
+    __tablename__ = 'Stations'
+    __table_args__ = {'extend_existing': True}
+
+    user_id = db.Column(db.Integer, db.ForeignKey('Rider.id'), primary_key=True)
+    driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'), primary_key=True)
+    start_datetime = db.Column(db.DateTime, primary_key=True)
+    distance = db.Column(db.Numeric)
+    price = db.Column(db.Numeric)
+    carbon_cost = db.Column(db.Numeric)
+
+
+class Rents(db.Model):
+    __tablename__ = 'Stations'
+    __table_args__ = {'extend_existing': True}
+
+    user_id = db.Column(db.Integer, db.ForeignKey('Rider.id'), primary_key=True)
+    bike_id = db.Column(db.Integer, db.ForeignKey('EBikes.bike_id'), primary_key=True)
+    start_datetime = db.Column(db.DateTime, primary_key=True)
+    distance = db.Column(db.Numeric)
+    price = db.Column(db.Numeric)
+    carbon_cost = db.Column(db.Numeric)
