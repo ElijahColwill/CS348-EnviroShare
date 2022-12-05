@@ -50,11 +50,15 @@ def rider_dashboard_car():
 def rider_dashboard_bike():
     if request.method == 'POST':
         loc = request.form.get('location')
-        station = Stations.query.all()
-        print(station)
+        station = Stations.query.filter_by(location=loc).first()
+        bikes = EBikes.query.filter_by(current_station=station.station_id).all()
+        return render_template('rider_dashboard_bike.html', user=current_user,
+                               role=session['account_type'], bikes_list=bikes)
+
+        print(bikes)
         print(loc)
     return render_template('rider_dashboard_bike.html', user=current_user,
-                           role=session['account_type'])
+                           role=session['account_type'], bikes_list=[])
 
 
 @views.route('/driver-dashboard', methods=['GET', 'POST'])

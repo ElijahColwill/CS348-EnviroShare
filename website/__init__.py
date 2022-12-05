@@ -29,6 +29,10 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqldb://Enviroshare:Enviroshare@127.0.0.1:3306/{DB_NAME}'
     db.init_app(app)
 
+    from .models import Rider, Driver, Stations, EBikes, EBikeType
+
+
+
     from .views import views
     from .auth import auth
     from .settings import settings
@@ -39,10 +43,62 @@ def create_app():
     app.register_blueprint(settings, url_prefix='/')
     app.register_blueprint(dashboard, url_prefix='/')
 
-    from .models import Rider, Driver
-
     with app.app_context():
         db.create_all()
+        if len(Stations.query.all()) == 0:
+            new_station = Stations(station_id=1, station_name="Purdue Memorial Union", location="PMU")
+            db.session.add(new_station)
+            new_station = Stations(station_id=2, station_name="Stewart Center", location="STEW")
+            db.session.add(new_station)
+            new_station = Stations(station_id=3, station_name="Lilly Hall", location="LILY")
+            db.session.add(new_station)
+            new_station = Stations(station_id=4, station_name="Aspire Apartments", location="ASPIRE")
+            db.session.add(new_station)
+            new_station = Stations(station_id=5, station_name="Horticulture Park", location="HORT")
+            db.session.add(new_station)
+            new_station = Stations(station_id=6, station_name="Lafayette Courthouse", location="LAF")
+            db.session.add(new_station)
+            new_station = Stations(station_id=7, station_name="Lafayette Zoo", location="ZOO")
+            db.session.add(new_station)
+            new_station = Stations(station_id=8, station_name="Lafayette Ihop", location="IHOP")
+            db.session.add(new_station)
+            new_station = Stations(station_id=9, station_name="Camp Cary", location="CARY")
+            db.session.add(new_station)
+            new_station = Stations(station_id=10, station_name="Indianapolis", location="INDY")
+            db.session.add(new_station)
+            db.session.commit()
+
+        if len(EBikeType.query.all()) == 0:
+            new_type = EBikeType(model="Tesla Model B", carbon_per_mile=2)
+            db.session.add(new_type)
+            new_type = EBikeType(model="Tesla Model I", carbon_per_mile=1)
+            db.session.add(new_type)
+            new_type = EBikeType(model="Tesla Model K", carbon_per_mile=5)
+            db.session.add(new_type)
+            new_type = EBikeType(model="Tesla Model E", carbon_per_mile=3)
+            db.session.add(new_type)
+            db.session.commit()
+
+
+        if len(EBikes.query.all()) == 0:
+            new_bike = EBikes(bike_id=1, current_station=1, model="Tesla Model B")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=2, current_station=1, model="Tesla Model B")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=3, current_station=3, model="Tesla Model I")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=4, current_station=4, model="Tesla Model I")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=5, current_station=5, model="Tesla Model K")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=6, current_station=6, model="Tesla Model K")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=7, current_station=7, model="Tesla Model E")
+            db.session.add(new_bike)
+            new_bike = EBikes(bike_id=8, current_station=8, model="Tesla Model E")
+            db.session.add(new_bike)
+            db.session.commit()
+
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

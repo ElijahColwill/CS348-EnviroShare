@@ -86,24 +86,27 @@ class EBikes(db.Model):
 
     bike_id = db.Column(db.Integer, primary_key=True)
     current_station = db.Column(db.Integer, db.ForeignKey('Stations.station_id'))
-    model = db.Column(db.String(150))
-    battery_level = db.Column(db.Numeric)
-    range = db.Column(db.Numeric)
+    model = db.Column(db.String(150), db.ForeignKey('EBikeType.model'))
+
+
+class EBikeType(db.Model):
+    __tablename__ = 'EBikeType'
+    __table_args__ = {'extend_existing': True}
+    model = db.Column(db.String(150), primary_key=True)
     carbon_per_mile = db.Column(db.Numeric)
 
 
 class Stations(db.Model):
     __tablename__ = 'Stations'
-    __table_args__ = {'extend_existing': False}
+    __table_args__ = {'extend_existing': True}
 
     station_id = db.Column(db.Integer, primary_key=True)
     station_name = db.Column(db.String(150))
     location = db.Column(db.String(150))
-    storage_slots = db.Column(db.Integer)
 
 
 class Drives(db.Model):
-    __tablename__ = 'Stations'
+    __tablename__ = 'Drives'
     __table_args__ = {'extend_existing': True}
 
     user_id = db.Column(db.Integer, db.ForeignKey('Rider.id'), primary_key=True)
@@ -115,7 +118,7 @@ class Drives(db.Model):
 
 
 class Rents(db.Model):
-    __tablename__ = 'Stations'
+    __tablename__ = 'Rents'
     __table_args__ = {'extend_existing': True}
 
     user_id = db.Column(db.Integer, db.ForeignKey('Rider.id'), primary_key=True)
