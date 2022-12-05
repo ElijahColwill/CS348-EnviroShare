@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Driver Search Report</h1>
+    <hr class="my-4">
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">Driver Search</h3>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Select driver options!</li>
+
+        <!--
+        <li class="list-group-item">
+            <a class="btn btn-primary btn-lg" href="/search-drivers" role="button">Driver Search Report</a>
+            <a class="btn btn-primary btn-lg" href="/search-vehicles" role="button">Most Popular Vehicles</a>
+            <a class="btn btn-primary btn-lg" href="/rider-leaderboard" role="button">Rider Leaderboard</a>
+        </li>
+           -->
+    </ul>
+
+    <form method="POST" id="searchDriversBoard">
+        <fieldset>
+          <div class="form-group">
+            <label for="exampleSelect1">Minimum Rating</label>
+            <select class="form-select" id="minimumRating" name = "minimumRating">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleSelect2">Maximum Rating</label>
+            <select class="form-select" id="maximumRating" name = "maximumRating">
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleSelect3">Carbon Efficiency Threshold</label>
+            <select class="form-select" id="carbonThreshold" name = "carbonThreshold">
+              <option>FIGURE OUT VALUE</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+      </form>
+</div>
+{% endblock %}

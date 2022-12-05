@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Top EBikes</h1>
+    <hr class="my-4">
+    <h5 class="card-header">Carbon Threshold Selected: {{carbon_threshold}}</h5>
+
+</div>
+{% for rider in riders%}
+<li class="list-group-item">{{ rider.name }}</li>
+{% endfor %}
+{% endblock %}

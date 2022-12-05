@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Popular Vehicle Search</h1>
+    <hr class="my-4">
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">Vehicle Search Options</h3>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Select vehicle options!</li>
+    </ul>
+
+    <form method="POST" id="searchVehiclesForm">
+        <fieldset>
+          <div class="form-group">
+            <label for="carbonThreshold">Carbon Efficiency Threshold</label>
+            <input  class="form-control" id="carbonThreshold" name="carbonThreshold" placeholder="">
+          </div>
+          
+          <fieldset class="form-group">
+            <legend class="mt-4">Vehicle Type</legend>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="vehicleReportType" id="vehicleReportType" value="option1" checked="">
+              <label class="form-check-label" for="vehicleReportType">
+                Select for Most Frequently used Car Models, Deselect for most frequently used bike models
+              </label>
+            </div>
+          
+          </fieldset>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
