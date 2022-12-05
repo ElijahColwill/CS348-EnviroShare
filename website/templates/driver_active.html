@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Driver Dashboard{% endblock %}
+
+{% block content %}
+<form method="POST" id="driverInactiveForm">
+    <div class="jumbotron">
+        <h1 class="display-3" align="center">Be ready to drive, {{ current_user.name }}!</h1>
+        <hr class="my-4">
+    </div>
+    <div class="card mb-3">
+        <h3 class="card-header">Driver Dashboard</h3>
+        <div class="card-body">
+            <h5 class="card-title">Driver Dashboard</h5>
+            <h6 class="list-group-item"><a class="btn btn-primary btn-lg" href="/driver-dashboard"
+                                           role="button">Stop Driving!</a></h6>
+        </div>
+    </div>
+</form>
+{% endblock %}

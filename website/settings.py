@@ -154,7 +154,7 @@ def payment():
 
             if not holder_name or not institution_name:
                 flash('Please fill out all fields to update information.', category='error')
-            elif len(routing_number) != 9 or not routing_number.isnumeric():
+            elif len(routing_number) != 16 or not routing_number.isnumeric():
                 flash('Routing number must be 16 digits.', category='error')
             elif len(account_number) < 12 or len(account_number) > 17 or not account_number.isnumeric():
                 flash('Account number must be between 12 and 17 digits.', category='error')
@@ -262,7 +262,7 @@ def car():
         octane = request.form.get('octane')
         mpg = request.form.get('mpg')
 
-        if mpg == 0:
+        if (mpg == 0) or (mpg == ''):
             carbon_per_mile = 100
         else:
             carbon_per_mile = 8887 / int(mpg)

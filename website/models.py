@@ -94,7 +94,7 @@ class EBikes(db.Model):
 
 class Stations(db.Model):
     __tablename__ = 'Stations'
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {'extend_existing': False}
 
     station_id = db.Column(db.Integer, primary_key=True)
     station_name = db.Column(db.String(150))

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Rider Dashboard{% endblock %}
+
+{% block content %}
+<form method="POST" id="bikeForm">
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Welcome, {{ current_user.name }}!</h1>
+    <hr class="my-4">
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">Biker Dashboard</h3>
+    <div class="card-body">
+        <h5 class="card-title">It's Bikin' Time</h5>
+        <h6 class="list-group-item"><a class="btn btn-primary btn-lg" href="/rider-dashboard"
+                                           role="button">Back</a></h6>
+    </div>
+    <div class="form-group" style="margin-bottom: 1em">
+            <label for="location">Location:</label>
+            <select class="form-select" id="location">
+                <option value="PMU">Purdue Memorial Union</option>
+                <option value="STEW">Stewart Center</option>
+                <option value="LILY">Lilly Hall</option>
+                <option value="ASPIRE">Aspire Apartments</option>
+                <option value="HORT">Horticulture Park</option>
+                <option value="LAF">Lafayette Courthouse</option>
+                <option value="ZOO">Lafayette Zoo</option>
+                <option value="IHOP">Lafayette Ihop</option>
+                <option value="CARY">Camp Cary</option>
+                <option value="INDY">Indianapolis</option>
+            </select>
+            <button type="submit" class="btn btn-primary btn-lg">Go!</button>
+        </div>
+</div>
+</form>
+{% endblock %}

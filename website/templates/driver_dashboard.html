@@ -2,23 +2,25 @@
 {% block title %}EnviroShare Driver Dashboard{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-3" align="center">Welcome, {{ current_user.name }}!</h1>
-    <hr class="my-4">
-</div>
-<div class="card mb-3">
-    <h3 class="card-header">Driver Dashboard</h3>
-    {% if has_payment == True and has_car == True %}
-    <div class="card-body">
-        <h5 class="card-title">Check Back Later - Start a Drive</h5>
-        <h6 class="card-subtitle text-muted"></h6>
+<form method="POST" id="driverInactiveForm">
+    <div class="jumbotron">
+        <h1 class="display-3" align="center">Welcome, {{ current_user.name }}!</h1>
+        <hr class="my-4">
     </div>
-    {% else %}
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Ensure you have a car and payment information added before driving!</li>
-        <li class="list-group-item"><a class="btn btn-primary btn-lg" href="/settings"
-                                       role="button">Settings</a></li>
-    </ul>
-    {% endif %}
-</div>
+    <div class="card mb-3">
+        <h3 class="card-header">Driver Dashboard</h3>
+        {% if has_payment == True and has_car == True %}
+        <div class="card-body">
+            <h5 class="card-title">Start a Drive!</h5>
+            <button type="submit" class="btn btn-primary btn-lg">Start Driving!</button>
+        </div>
+        {% else %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">You cannot drive until you have added car and payment information!</li>
+            <li class="list-group-item"><a class="btn btn-primary btn-lg" href="/settings"
+                                           role="button">Settings</a></li>
+        </ul>
+        {% endif %}
+    </div>
+</form>
 {% endblock %}

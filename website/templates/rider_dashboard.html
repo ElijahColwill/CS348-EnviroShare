@@ -10,8 +10,11 @@
     <h3 class="card-header">Rider Dashboard</h3>
     {% if has_payment == True %}
     <div class="card-body">
-        <h5 class="card-title">Check Back Later - Start a Ride</h5>
-        <h6 class="card-subtitle text-muted"></h6>
+        <h5 class="card-title">Start a Ride</h5>
+        <h6 class="list-group-item"><a class="btn btn-primary btn-lg" href="/rider-dashboard-car"
+                                           role="button">Find Rides!</a></h6>
+        <h6 class="list-group-item"><a class="btn btn-primary btn-lg" href="/rider-dashboard-bike"
+                                           role="button">Find Bikes!</a></h6>
     </div>
     {% else %}
     <ul class="list-group list-group-flush">
