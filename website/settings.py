@@ -204,7 +204,7 @@ def profile():
             elif password1 and password1 != password2:
                 flash('Passwords don\'t match.', category='error')
             elif password1 and len(password1) < 8:
-                flash('Password must be at least 8 characters.', category='error')
+                flash('Password must be at least 8 characters!', category='error')
             else:
                 if email:
                     rider.email = email
