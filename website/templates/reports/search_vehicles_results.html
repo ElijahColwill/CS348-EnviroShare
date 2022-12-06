@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Search Vehicles</h1>
+    <hr class="my-4">
+    <ul class="list-group list-group-flush" style="margin: 1em">
+        <li class="list-group-item">Carbon Threshold Selected: {{carbon_threshold}} grams</li>
+    </ul>
+</div>
+{% if entries|length == 0 %}
+<h5 class="card-text" style="margin: 1em">No results founds, please try again by clicking reports and selecting new
+    parameters.</h5>
+{% else %}
+{% if vehicle_type == 'cars' %}
+<table class="table table-hover" style="margin: 1em">
+    <thead>
+    <tr>
+        <th scope="col">Car Year/Make/Model</th>
+        <th scope="col">Carbon Per Mile (Grams)</th>
+        <th scope="col">Number of Rides</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in entries %}
+    <tr>
+        <th scope="row">{{entry.year}} {{entry.make}} {{entry.model}}</th>
+        <th scope="row">{{entry.carbon_per_mile}}</th>
+        <th scope="row">{{entry.number_of_rides}}</th>
+        <td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<table class="table table-hover" style="margin: 1em">
+    <thead>
+    <tr>
+        <th scope="col">Bike Model</th>
+        <th scope="col">Carbon Per Mile (Grams)</th>
+        <th scope="col">Number of Rides</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in entries %}
+    <tr>
+        <th scope="row">{{entry.model}}</th>
+        <th scope="row">{{entry.carbon_per_mile}}</th>
+        <th scope="row">{{entry.number_of_rides}}</th>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
+{% endblock %}

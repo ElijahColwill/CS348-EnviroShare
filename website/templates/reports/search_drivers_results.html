@@ -22,6 +22,7 @@
         <th scope="col">Driver Name</th>
         <th scope="col">Average Rating</th>
         <th scope="col">Number of Trips</th>
+        <th scope="col">Average Carbon Emissions Per Trip (Grams)</th>
         <th scope="col">Car</th>
     </tr>
     </thead>
@@ -29,8 +30,9 @@
     {% for entry in entries %}
     <tr>
         <th scope="row">{{entry.name}}</th>
-        <th scope="row">{{entry.rating}}</th>
-        <th scope="row">{{entry.number_of_trips}}</th>
+        <td>{{entry.rating}}</td>
+        <td>{{entry.number_of_trips}}</td>
+        <td>{{ '%0.2f'| format(entry.average_cost|float) }}</td>
         <td>{{entry.year}} {{entry.make}} {{entry.model}} ({{entry.color}})</td>
     </tr>
     {% endfor %}
