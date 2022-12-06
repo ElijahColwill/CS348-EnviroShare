@@ -4,39 +4,52 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-3" align="center">Search Drivers</h1>
+    <h1 class="display-3" align="center">Rider Leaderboard</h1>
     <hr class="my-4">
     <ul class="list-group list-group-flush" style="margin: 1em">
-        <li class="list-group-item">Minimum Rating Selected: {{minimum_rating}}</li>
-        <li class="list-group-item">Maximum Rating Selected: {{maximum_rating}}</li>
-        <li class="list-group-item">Carbon Threshold Selected: {{carbon_threshold|int / 1000}} kilograms</li>
+        <li class="list-group-item">Sorted By: {{sort}}</li>
     </ul>
 </div>
 {% if entries|length == 0 %}
 <h5 class="card-text" style="margin: 1em">No results found, please try again by clicking reports and selecting new
     parameters.</h5>
 {% else %}
+{% if sort == 'Lowest Average Carbon Per Mile (Grams)' %}
 <table class="table table-hover" style="margin: 1em">
     <thead>
     <tr>
-        <th scope="col">Driver Name</th>
-        <th scope="col">Average Rating</th>
+        <th scope="col">Rider</th>
         <th scope="col">Number of Trips</th>
-        <th scope="col">Average Carbon Emissions Per Trip (Grams)</th>
-        <th scope="col">Car</th>
+        <th scope="col">Average Carbon Per Mile (Grams)</th>
     </tr>
     </thead>
     <tbody>
     {% for entry in entries %}
     <tr>
         <th scope="row">{{entry.name}}</th>
-        <td>{{entry.rating}}</td>
         <td>{{entry.number_of_trips}}</td>
-        <td>{{ '%0.2f'| format(entry.average_cost|float) }}</td>
-        <td>{{entry.year}} {{entry.make}} {{entry.model}} ({{entry.color}})</td>
+        <td>{{entry.average_carbon}}</td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
+{% else %}
+<table class="table table-hover" style="margin: 1em">
+    <thead>
+    <tr>
+        <th scope="col">Rider</th>
+        <th scope="col">Number of Trips</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in entries %}
+    <tr>
+        <th scope="row">{{entry.name}}</th>
+        <td>{{entry.number_of_trips}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 {% endif %}
 {% endblock %}

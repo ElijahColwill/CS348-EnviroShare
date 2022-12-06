@@ -15,6 +15,54 @@ def reports_home():
                            role=session['account_type'])
 
 
+@reports.route('/rider-leaderboard', methods=['GET', 'POST'])
+@login_required(role="ANY")
+def rider_leaderboard():
+    if request.method == 'POST':
+        sort_type = request.form.get('sortType')
+        if not sort_type:
+            flash('Please select every field to perform a search.', category='error')
+        else:
+            if sort_type == 'carbon':
+                carbon_filtered = db.session.execute(text('''
+                                                                    SELECT temp.name, temp.number_of_trips, 
+                                                                        AVG(temp.carbon_cost) as average_carbon
+                                                                    FROM (
+                                                                        SELECT Rider.id, Rider.name, 
+                                                                            Rider.number_of_trips,
+                                                                            Rents.carbon_cost as carbon_cost
+                                                                        FROM Rider
+                                                                        LEFT OUTER JOIN Rents
+                                                                        ON Rider.id = Rents.user_id 
+                                                                        UNION 
+                                                                        SELECT Rider.id, Rider.name, 
+                                                                            Rider.number_of_trips,
+                                                                            Drives.carbon_cost as carbon_cost
+                                                                        FROM Rider
+                                                                        LEFT OUTER JOIN Drives
+                                                                        ON Rider.id = Drives.user_id
+                                                                    ) as temp
+                                                                    GROUP BY temp.id, temp.name, temp.number_of_trips
+                                                                    HAVING temp.number_of_trips > 0
+                                                                    ORDER BY average_carbon
+                                                                    LIMIT 10;
+                                                                ''')).all()
+                return render_template('reports/rider_leaderboard_results.html',
+                                       entries=carbon_filtered, user=current_user,
+                                       role=session['account_type'], sort='Lowest Average Carbon Per Mile (Grams)')
+            else:
+                trips_filtered = db.session.execute(text('''
+                                                        SELECT Rider.name, Rider.number_of_trips
+                                                        FROM Rider
+                                                        ORDER BY Rider.number_of_trips DESC
+                                                        LIMIT 10;
+                                                                                ''')).all()
+                return render_template('reports/rider_leaderboard_results.html',
+                                       entries=trips_filtered, user=current_user,
+                                       role=session['account_type'], sort='Highest Number of Trips')
+    return render_template('reports/rider_leaderboard.html', user=current_user, role=session['account_type'])
+
+
 @reports.route('/search-vehicles', methods=['GET', 'POST'])
 @login_required(role="ANY")
 def search_vehicles():
@@ -69,7 +117,7 @@ def search_vehicles():
                                        vehicle_type=vehicle_type, entries=bikes_filtered, user=current_user,
                                        role=session['account_type'])
 
-    return render_template('reports/search_vehicles.html')
+    return render_template('reports/search_vehicles.html', user=current_user, role=session['account_type'])
 
 
 @reports.route('/search-drivers', methods=['GET', 'POST'])
@@ -111,4 +159,4 @@ def search_drivers():
                                    user=current_user,
                                    role=session['account_type'])
 
-    return render_template('reports/search_drivers.html')
+    return render_template('reports/search_drivers.html', user=current_user, role=session['account_type'])

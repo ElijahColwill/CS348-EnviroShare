@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Rider Leaderboard</h1>
+    <hr class="my-4">
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">Leaderboard Options</h3>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Rider Leaderboard</li>
+    </ul>
+    <form method="POST" id="riderLeaderboard">
+        <fieldset>
+            <h5 style="margin: 1em">Leaderboard Option (Options consider both Bike Rentals and Rides)</h5>
+            <fieldset class="form-group" style="margin: 1em">
+                <div class="form-check" style="margin: 1em">
+                    <input class="form-check-input" type="radio" name="sortType" id="sortTypeCarbon" value="carbon"
+                           checked="">
+                    <label class="form-check-label" for="sortTypeCarbon">
+                        Lowest Average Carbon Per Mile (Grams)
+                    </label>
+                </div>
+                <div class="form-check" style="margin: 1em">
+                    <input class="form-check-input" type="radio" name="sortType" id="sortTypeTrips"
+                           value="trips">
+                    <label class="form-check-label" for="sortTypeTrips">
+                        Highest Number of Trips
+                    </label>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary" style="margin: 1em">Submit</button>
+        </fieldset>
+
+    </form>
+
+
+</div>
+{% endblock %}

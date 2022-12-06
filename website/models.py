@@ -14,7 +14,6 @@ class Rider(db.Model, UserMixin):
     password = db.Column(db.String(150))
     name = db.Column(db.String(150))
     DOB = db.Column(db.String(10))
-    active = db.Column(db.Boolean)
     number_of_trips = db.Column(db.Integer)
 
 

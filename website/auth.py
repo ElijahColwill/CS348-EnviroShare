@@ -85,7 +85,7 @@ def rider_sign_up():
             flash('You must be 16 years old to ride.')
         else:
             new_user = Rider(email=email, name=full_name, password=generate_password_hash(password1), DOB=DOB,
-                             active=False, number_of_trips=0)
+                             number_of_trips=0)
             db.session.add(new_user)
             db.session.commit()
             flash('Account Created!', category='success')
