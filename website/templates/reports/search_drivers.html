@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Driver Search Report</h1>
+    <hr class="my-4">
+</div>
+<div class="card mb-3" style="margin: 1em">
+    <h3 class="card-header">Driver Search</h3>
+
+    <ul class="list-group list-group-flush" style="margin: 1em">
+        <li class="list-group-item">Select driver options!</li>
+    </ul>
+
+    <form method="POST" id="searchDriversBoard">
+        <fieldset>
+            <div class="form-group" style="margin: 1em">
+                <label for="minimumRating">Minimum Overall Rating</label>
+                <select class="form-select" id="minimumRating" name="minimumRating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin: 1em">
+                <label for="maximumRating">Maximum Overall Rating</label>
+                <select class="form-select" id="maximumRating" name="maximumRating">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin: 1em">
+                <label for="carbonThreshold">Maximum Carbon Cost Threshold (Average Kilograms of Carbon Emissions Per
+                    Ride)</label>
+                <select class="form-select" id="carbonThreshold" name="carbonThreshold">
+                    <option value="1000">1 kilogram</option>
+                    <option value="5000">5 kilograms</option>
+                    <option value="10000">10 kilograms</option>
+                    <option value="20000">20 kilograms</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin: 1em">Submit</button>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

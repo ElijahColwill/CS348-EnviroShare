@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Search Drivers</h1>
+    <hr class="my-4">
+    <ul class="list-group list-group-flush" style="margin: 1em">
+        <li class="list-group-item">Minimum Rating Selected: {{minimum_rating}}</li>
+        <li class="list-group-item">Maximum Rating Selected: {{maximum_rating}}</li>
+        <li class="list-group-item">Carbon Threshold Selected: {{carbon_threshold|int / 1000}} kilograms</li>
+    </ul>
+</div>
+{% if entries|length == 0 %}
+<h5 class="card-text" style="margin: 1em">No results founds, please try again by clicking reports and selecting new
+    parameters.</h5>
+{% else %}
+<table class="table table-hover" style="margin: 1em">
+    <thead>
+    <tr>
+        <th scope="col">Driver Name</th>
+        <th scope="col">Average Rating</th>
+        <th scope="col">Number of Trips</th>
+        <th scope="col">Car</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entry in entries %}
+    <tr>
+        <th scope="row">{{entry.name}}</th>
+        <th scope="row">{{entry.rating}}</th>
+        <th scope="row">{{entry.number_of_trips}}</th>
+        <td>{{entry.year}} {{entry.make}} {{entry.model}} ({{entry.color}})</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

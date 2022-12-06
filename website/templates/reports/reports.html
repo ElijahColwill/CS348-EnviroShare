@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}EnviroShare Reports{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-3" align="center">Enviroshare Reports</h1>
+    <hr class="my-4">
+</div>
+<div class="card mb-3">
+    <h3 class="card-header">Report Options</h3>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Select a Report!</li>
+        <li class="list-group-item">
+            <a class="btn btn-primary btn-lg" href="/search-drivers" role="button">Drivers Search</a>
+            <a class="btn btn-primary btn-lg" href="/search-vehicles" role="button">Vehicle Popularity</a>
+            <a class="btn btn-primary btn-lg" href="/rider-leaderboard" role="button">Rider Leaderboard</a>
+        </li>
+
+    </ul>
+</div>
+{% endblock %}

@@ -34,12 +34,12 @@ def create_app():
     from .views import views
     from .auth import auth
     from .settings import settings
-    from .dashboard import dashboard
+    from .reports import reports
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(settings, url_prefix='/')
-    app.register_blueprint(dashboard, url_prefix='/')
+    app.register_blueprint(reports, url_prefix='/')
 
     with app.app_context():
         db.create_all()

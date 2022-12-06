@@ -40,7 +40,7 @@ class RiderPaymentInformation(db.Model):
     card_type = db.Column(db.String(150))
     card_number = db.Column(db.BigInteger)
     expiration_date = db.Column(db.String(150))
-    security_code = db.Column(db.Integer)
+    security_code = db.Column(db.Numeric(10, 2))
 
 
 class DriverPaymentInformation(db.Model):
