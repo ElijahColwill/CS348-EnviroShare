@@ -44,10 +44,12 @@
             {% else %}
             <h5 class="card-text" style="margin: 1em">Drivers available from {{start.station_name}} to {{end.station_name}}:</h5>
             <p style="margin: 1em">Note: Price considers carbon-per-mile and distance. More efficient rides will be cheaper!</p>
+            <p style="margin: 1em">Please email your driver after selecting a ride with them.</p>
             <table class="table table-hover" style="margin: 1em">
                 <thead>
                 <tr>
                     <th scope="col">Driver Name</th>
+                    <th scope="col">Driver Email</th>
                     <th scope="col">Car</th>
                     <th scope="col">Carbon Per Mile</th>
                     <th scope="col">Price</th>
@@ -58,6 +60,7 @@
                 {% for entry in entries %}
                 <tr>
                     <th scope="row">{{entry.name}}</th>
+                    <td>{{entry.email}}</td>
                     <td>{{entry.year}} {{entry.make}} {{entry.model}} ({{entry.color}})</td>
                     <td>{{entry.carbon_per_mile}}</td>
                     {% set price = distance / 5 + (entry.carbon_per_mile * (distance / 500)) %}

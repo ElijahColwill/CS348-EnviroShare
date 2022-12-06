@@ -60,7 +60,6 @@ def rider_dashboard_car():
 
         information_dict = request.form.get('rating_button')
         if information_dict:
-            print(information_dict)
             information_dict = eval(information_dict)
             rating = int(request.form.get('rating'))
             selected_driver = Driver.query.get(int(information_dict['id']))
@@ -105,7 +104,8 @@ def rider_dashboard_car():
             entries = Car.query.join(Driver, (Driver.id == Car.driver_id) & (Driver.active)) \
                 .join(CarType, (CarType.make == Car.make) & (CarType.model == Car.model)
                       & (CarType.year == Car.year)) \
-                .add_columns(Driver.id, Driver.name, Car.color, Car.make, Car.model, Car.year, CarType.carbon_per_mile) \
+                .add_columns(Driver.id, Driver.name, Driver.email, Car.color, Car.make, Car.model,
+                             Car.year, CarType.carbon_per_mile) \
                 .all()
             return render_template('rider_dashboard_car.html', user=current_user,
                                    role=session['account_type'], start=starting_station, end=ending_station,
