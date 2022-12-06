@@ -31,8 +31,6 @@ def create_app():
 
     from .models import Rider, Driver, Stations, EBikes, EBikeType
 
-
-
     from .views import views
     from .auth import auth
     from .settings import settings
@@ -46,25 +44,35 @@ def create_app():
     with app.app_context():
         db.create_all()
         if len(Stations.query.all()) == 0:
-            new_station = Stations(station_id=1, station_name="Purdue Memorial Union", location="PMU")
+            new_station = Stations(station_id=1, station_name="Purdue Memorial Union",
+                                   location="PMU", distance_proxy=0)
             db.session.add(new_station)
-            new_station = Stations(station_id=2, station_name="Stewart Center", location="STEW")
+            new_station = Stations(station_id=2, station_name="Stewart Center",
+                                   location="STEW", distance_proxy=1)
             db.session.add(new_station)
-            new_station = Stations(station_id=3, station_name="Lilly Hall", location="LILY")
+            new_station = Stations(station_id=3, station_name="Lilly Hall",
+                                   location="LILY", distance_proxy=2)
             db.session.add(new_station)
-            new_station = Stations(station_id=4, station_name="Aspire Apartments", location="ASPIRE")
+            new_station = Stations(station_id=4, station_name="Aspire Apartments",
+                                   location="ASPIRE", distance_proxy=8)
             db.session.add(new_station)
-            new_station = Stations(station_id=5, station_name="Horticulture Park", location="HORT")
+            new_station = Stations(station_id=5, station_name="Horticulture Park",
+                                   location="HORT", distance_proxy=12)
             db.session.add(new_station)
-            new_station = Stations(station_id=6, station_name="Lafayette Courthouse", location="LAF")
+            new_station = Stations(station_id=6, station_name="Lafayette Courthouse",
+                                   location="LAF", distance_proxy=18)
             db.session.add(new_station)
-            new_station = Stations(station_id=7, station_name="Lafayette Zoo", location="ZOO")
+            new_station = Stations(station_id=7, station_name="Lafayette Zoo",
+                                   location="ZOO", distance_proxy=20)
             db.session.add(new_station)
-            new_station = Stations(station_id=8, station_name="Lafayette Ihop", location="IHOP")
+            new_station = Stations(station_id=8, station_name="Lafayette Ihop",
+                                   location="IHOP", distance_proxy=22)
             db.session.add(new_station)
-            new_station = Stations(station_id=9, station_name="Camp Cary", location="CARY")
+            new_station = Stations(station_id=9, station_name="Camp Cary",
+                                   location="CARY", distance_proxy=30)
             db.session.add(new_station)
-            new_station = Stations(station_id=10, station_name="Indianapolis", location="INDY")
+            new_station = Stations(station_id=10, station_name="Indianapolis",
+                                   location="INDY", distance_proxy=125)
             db.session.add(new_station)
             db.session.commit()
 
@@ -79,11 +87,10 @@ def create_app():
             db.session.add(new_type)
             db.session.commit()
 
-
         if len(EBikes.query.all()) == 0:
             new_bike = EBikes(bike_id=1, current_station=1, model="Tesla Model B")
             db.session.add(new_bike)
-            new_bike = EBikes(bike_id=2, current_station=1, model="Tesla Model B")
+            new_bike = EBikes(bike_id=2, current_station=1, model="Tesla Model I")
             db.session.add(new_bike)
             new_bike = EBikes(bike_id=3, current_station=3, model="Tesla Model I")
             db.session.add(new_bike)
@@ -98,7 +105,6 @@ def create_app():
             new_bike = EBikes(bike_id=8, current_station=8, model="Tesla Model E")
             db.session.add(new_bike)
             db.session.commit()
-
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

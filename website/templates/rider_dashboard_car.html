@@ -6,44 +6,77 @@
     <h1 class="display-3" align="center">Welcome, {{ current_user.name }}!</h1>
     <hr class="my-4">
 </div>
+    <form method="POST" id="riderRideForm">
 <div class="card mb-3">
     <h3 class="card-header">Car Rider Dashboard</h3>
     <div class="card-body">
-        <h5 class="card-title">It's Ridin' Time</h5>
-        <h6 class="list-group-item"><a class="btn btn-primary btn-lg" href="/rider-dashboard"
-                                           role="button">Back</a></h6>
+        <h5 class="card-title">It's Ridin' Time <a class="btn btn-primary btn-sm" href="/rider-dashboard"
+                                                   role="button">Cancel</a></h5>
     </div>
-    <div class="form-group" style="margin-bottom: 1em">
-            <label for="location">Starting Location:</label>
-            <select class="form-select" id="location">
-                <option value="PMU">Purdue Memorial Union</option>
-                <option value="STEW">Stewart Center</option>
-                <option value="LILY">Lilly Hall</option>
-                <option value="ASPIRE">Aspire Apartments</option>
-                <option value="HORT">Horticulture Park</option>
-                <option value="LAF">Lafayette Courthouse</option>
-                <option value="ZOO">Lafayette Zoo</option>
-                <option value="IHOP">Lafayette Ihop</option>
-                <option value="CARY">Camp Cary</option>
-                <option value="INDY">Indianapolis</option>
+        <div class="form-group" style="margin: 1em">
+            <label for="location_starting">Starting Location:</label>
+            <select class="form-select" id="location_starting" name="location_starting">
+                {% for location in location_dict.keys() %}
+                {% if start != None and start.location == location %}
+                <option value="{{location}}" selected="selected">{{location_dict[location]}}</option>
+                {% else %}
+                <option value="{{location}}">{{location_dict[location]}}</option>
+                {% endif %}
+                {% endfor %}
             </select>
         </div>
-    <div class="form-group" style="margin-bottom: 1em">
-            <label for="location2">Ending Location:</label>
-            <select class="form-select" id="location2">
-                <option value="PMU">Purdue Memorial Union</option>
-                <option value="STEW">Stewart Center</option>
-                <option value="LILY">Lilly Hall</option>
-                <option value="ASPIRE">Aspire Apartments</option>
-                <option value="HORT">Horticulture Park</option>
-                <option value="LAF">Lafayette Courthouse</option>
-                <option value="ZOO">Lafayette Zoo</option>
-                <option value="IHOP">Lafayette Ihop</option>
-                <option value="CARY">Camp Cary</option>
-                <option value="INDY">Indianapolis</option>
+        <div class="form-group" style="margin: 1em">
+            <label for="location_ending">Ending Location:</label>
+            <select class="form-select" id="location_ending" name="location_ending">
+                {% for location in location_dict.keys() %}
+                {% if end != None and end.location == location %}
+                <option value="{{location}}" selected="selected">{{location_dict[location]}}</option>
+                {% else %}
+                <option value="{{location}}">{{location_dict[location]}}</option>
+                {% endif %}
+                {% endfor %}
             </select>
-            <button type="submit" class="btn btn-primary btn-lg">Search!</button>
         </div>
+        <button type="submit" style="margin: 1em" class="btn btn-primary btn-lg">Go!</button>
+    <div>
+    {% if entries|length == 0 %}
+            <h5 class="card-text" style="margin: 1em">No location selected or no drivers available.</h5>
+            {% else %}
+            <h5 class="card-text" style="margin: 1em">Drivers available from {{start.station_name}} to {{end.station_name}}:</h5>
+            <p style="margin: 1em">Note: Price considers carbon-per-mile and distance. More efficient rides will be cheaper!</p>
+            <table class="table table-hover" style="margin: 1em">
+                <thead>
+                <tr>
+                    <th scope="col">Driver Name</th>
+                    <th scope="col">Car</th>
+                    <th scope="col">Carbon Per Mile</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Ride</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <th scope="row">{{entry.name}}</th>
+                    <td>{{entry.year}} {{entry.make}} {{entry.model}} ({{entry.color}})</td>
+                    <td>{{entry.carbon_per_mile}}</td>
+                    {% set price = distance / 5 + (entry.carbon_per_mile * (distance / 500)) %}
+                    <td>${{ '%0.2f'| format(price|float) }}</td>
+                    <td>
+                        <button type="submit" name="ride_button" value="{{ entry.id }}"
+                                class="btn btn-primary btn-sm">
+                            Ride
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
 </div>
+</form>
+
 
 {% endblock %}

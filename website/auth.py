@@ -123,7 +123,7 @@ def driver_sign_up():
             flash('Sorry, you do not meet the eligibility requirements to become a driver.', category='error')
         else:
             new_user = Driver(email=email, name=full_name, password=generate_password_hash(password1), DOB=DOB,
-                              active=False, number_of_trips=0)
+                              active=False, number_of_trips=0, rating=0)
             db.session.add(new_user)
             db.session.commit()
             flash('Account Created!', category='success')

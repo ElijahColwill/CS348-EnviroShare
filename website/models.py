@@ -4,6 +4,7 @@ from . import db
 from flask_login import UserMixin
 from datetime import datetime
 
+
 class Rider(db.Model, UserMixin):
     __tablename__ = 'Rider'
     __table_args__ = {'extend_existing': True}
@@ -28,6 +29,7 @@ class Driver(db.Model, UserMixin):
     DOB = db.Column(db.String(10))
     active = db.Column(db.Boolean)
     number_of_trips = db.Column(db.Integer)
+    rating = db.Column(db.Integer)
 
 
 class RiderPaymentInformation(db.Model):
@@ -75,9 +77,9 @@ class CarType(db.Model):
     make = db.Column(db.String(150), primary_key=True)
     model = db.Column(db.String(150), primary_key=True)
     year = db.Column(db.Integer, primary_key=True)
-    fuel_octane = db.Column(db.Numeric)
-    MPG = db.Column(db.Numeric)
-    carbon_per_mile = db.Column(db.Numeric)
+    fuel_octane = db.Column(db.Numeric(10, 2))
+    MPG = db.Column(db.Numeric(10, 2))
+    carbon_per_mile = db.Column(db.Numeric(10, 2))
 
 
 class EBikes(db.Model):
@@ -93,7 +95,7 @@ class EBikeType(db.Model):
     __tablename__ = 'EBikeType'
     __table_args__ = {'extend_existing': True}
     model = db.Column(db.String(150), primary_key=True)
-    carbon_per_mile = db.Column(db.Numeric)
+    carbon_per_mile = db.Column(db.Numeric(10, 2))
 
 
 class Stations(db.Model):
@@ -103,6 +105,7 @@ class Stations(db.Model):
     station_id = db.Column(db.Integer, primary_key=True)
     station_name = db.Column(db.String(150))
     location = db.Column(db.String(150))
+    distance_proxy = db.Column(db.Integer)
 
 
 class Drives(db.Model):
@@ -112,9 +115,9 @@ class Drives(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('Rider.id'), primary_key=True)
     driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'), primary_key=True)
     start_datetime = db.Column(db.DateTime, primary_key=True)
-    distance = db.Column(db.Numeric)
-    price = db.Column(db.Numeric)
-    carbon_cost = db.Column(db.Numeric)
+    distance = db.Column(db.Numeric(10, 2))
+    price = db.Column(db.Numeric(10, 2))
+    carbon_cost = db.Column(db.Numeric(10, 2))
 
 
 class Rents(db.Model):
@@ -124,6 +127,6 @@ class Rents(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('Rider.id'), primary_key=True)
     bike_id = db.Column(db.Integer, db.ForeignKey('EBikes.bike_id'), primary_key=True)
     start_datetime = db.Column(db.DateTime, primary_key=True)
-    distance = db.Column(db.Numeric)
-    price = db.Column(db.Numeric)
-    carbon_cost = db.Column(db.Numeric)
+    distance = db.Column(db.Numeric(10, 2))
+    price = db.Column(db.Numeric(10, 2))
+    carbon_cost = db.Column(db.Numeric(10, 2))
