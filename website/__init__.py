@@ -3,6 +3,7 @@ from functools import wraps
 from flask import Flask, session, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
+from sqlalchemy import Index
 
 db = SQLAlchemy()
 DB_NAME = 'enviroshare'
@@ -29,7 +30,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqldb://Enviroshare:Enviroshare@127.0.0.1:3306/{DB_NAME}'
     db.init_app(app)
 
-    from .models import Rider, Driver, Stations, EBikes, EBikeType
+    from .models import Rider, Driver, Car, Stations, EBikes, EBikeType
 
     from .views import views
     from .auth import auth

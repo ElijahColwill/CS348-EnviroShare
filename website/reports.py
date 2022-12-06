@@ -3,7 +3,6 @@ from flask_login import current_user
 from sqlalchemy import text
 
 from . import login_required, db
-from .models import Driver, Car, CarType
 
 reports = Blueprint('reports', __name__)
 
@@ -26,24 +25,26 @@ def rider_leaderboard():
             if sort_type == 'carbon':
                 carbon_filtered = db.session.execute(text('''
                                                                     SELECT temp.name, temp.number_of_trips, 
-                                                                        AVG(temp.carbon_cost) as average_carbon
+                                                                        AVG(temp.carbon_cost / temp.distance) 
+                                                                        AS average_carbon
                                                                     FROM (
                                                                         SELECT Rider.id, Rider.name, 
                                                                             Rider.number_of_trips,
+                                                                            Rents.distance,
                                                                             Rents.carbon_cost as carbon_cost
                                                                         FROM Rider
-                                                                        LEFT OUTER JOIN Rents
+                                                                        JOIN Rents
                                                                         ON Rider.id = Rents.user_id 
                                                                         UNION 
                                                                         SELECT Rider.id, Rider.name, 
                                                                             Rider.number_of_trips,
+                                                                            Drives.distance,
                                                                             Drives.carbon_cost as carbon_cost
                                                                         FROM Rider
-                                                                        LEFT OUTER JOIN Drives
+                                                                        JOIN Drives
                                                                         ON Rider.id = Drives.user_id
                                                                     ) as temp
                                                                     GROUP BY temp.id, temp.name, temp.number_of_trips
-                                                                    HAVING temp.number_of_trips > 0
                                                                     ORDER BY average_carbon
                                                                     LIMIT 10;
                                                                 ''')).all()

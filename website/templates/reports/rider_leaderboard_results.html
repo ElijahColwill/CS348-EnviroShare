@@ -28,7 +28,7 @@
     <tr>
         <th scope="row">{{entry.name}}</th>
         <td>{{entry.number_of_trips}}</td>
-        <td>{{entry.average_carbon}}</td>
+        <td>{{ '%0.2f'| format(entry.average_carbon|float) }}</td>
     </tr>
     {% endfor %}
     </tbody>

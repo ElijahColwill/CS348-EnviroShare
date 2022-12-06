@@ -28,6 +28,8 @@ location_dict = {
 
 @views.route('/')
 def home():
+    if not current_user.is_authenticated:
+        session['account_type'] = None
     try:
         if session['account_type']:
             if session['account_type'] == 'Rider':
