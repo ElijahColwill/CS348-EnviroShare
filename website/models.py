@@ -77,7 +77,7 @@ class CarType(db.Model):
     year = db.Column(db.Integer, primary_key=True)
     fuel_octane = db.Column(db.Numeric(10, 2))
     MPG = db.Column(db.Numeric(10, 2))
-    carbon_per_mile = db.Column(db.Numeric(10, 2))
+    carbon_per_mile = db.Column(db.Numeric(10, 2), index=True)
 
 
 class EBikes(db.Model):
@@ -93,7 +93,7 @@ class EBikeType(db.Model):
     __tablename__ = 'EBikeType'
     __table_args__ = {'extend_existing': True}
     model = db.Column(db.String(150), primary_key=True)
-    carbon_per_mile = db.Column(db.Numeric(10, 2))
+    carbon_per_mile = db.Column(db.Numeric(10, 2), index=True)
 
 
 class Stations(db.Model):
